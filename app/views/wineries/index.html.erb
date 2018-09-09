@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wineries</h1>
+
+<p>Number of wineries: <%= @wineries.count %> </p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Year</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wineries.each do |winery| %>
+      <tr>
+        <td><%= link_to winery.name, winery %></td>
+        <td><%= winery.year %></td>
+        <td><%= link_to 'Edit', edit_winery_path(winery) %></td>
+        <td><%= link_to 'Destroy', winery, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<p><%= link_to 'New Winery', new_winery_path %> </p>
+
+<p><%= link_to 'List of wines', wines_path %> </p>
