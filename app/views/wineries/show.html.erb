@@ -12,5 +12,13 @@
   <% end %>
 </p>
 
+<p>
+<% if @winery.ratings.empty? %>
+ This winery has not yet been rated!
+<% else %>
+ Has <%= pluralize(@winery.ratings.count, 'rating') %>, average <%= @winery.average_rating %>
+<% end %>
+</p>
+
 <%= link_to 'Edit', edit_winery_path(@winery) %> |
 <%= link_to 'Back', wineries_path %>

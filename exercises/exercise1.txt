@@ -1,0 +1,113 @@
+[17] pry(main)> w = Winery.new name: "Casa Rojo", year:2010                          
+=> #<Winery:0x00007fb4f77caca0
+ id: nil,
+ name: "Casa Rojo",
+ year: 2010,
+ created_at: nil,
+ updated_at: nil>
+[18] pry(main)> w.save
+   (0.1ms)  begin transaction
+  Winery Create (0.6ms)  INSERT INTO "wineries" ("name", "year", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Casa Rojo"], ["year", 2010], ["created_at", "2018-09-16 10:55:23.905866"], ["updated_at", "2018-09-16 10:55:23.905866"]]
+   (0.8ms)  commit transaction
+=> true
+[19] pry(main)> Wine.create name:"Macho Man", style:"Monastrell", winery_id:w.id
+   (0.1ms)  begin transaction
+  Winery Load (0.3ms)  SELECT  "wineries".* FROM "wineries" WHERE "wineries"."id" = ? LIMIT ?  [["id", 5], ["LIMIT", 1]]
+  Wine Create (0.5ms)  INSERT INTO "wines" ("name", "style", "winery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Macho Man"], ["style", "Monastrell"], ["winery_id", 5], ["created_at", "2018-09-16 10:55:46.478283"], ["updated_at", "2018-09-16 10:55:46.478283"]]
+   (1.9ms)  commit transaction
+=> #<Wine:0x00007fb4f59948d0
+ id: 12,
+ name: "Macho Man",
+ style: "Monastrell",
+ winery_id: 5,
+ created_at: Sun, 16 Sep 2018 10:55:46 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:55:46 UTC +00:00>                                                                                        [20] pry(main)> Wine.create name:"La Marimorena", style:"Albarino", winery_id:w.id         
+   (0.1ms)  begin transaction
+  Winery Load (0.2ms)  SELECT  "wineries".* FROM "wineries" WHERE "wineries"."id" = ? LIMIT ?  [["id", 5], ["LIMIT", 1]]
+  Wine Create (0.4ms)  INSERT INTO "wines" ("name", "style", "winery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "La Marimorena"], ["style", "Albarino"], ["winery_id", 5], ["created_at", "2018-09-16 10:57:01.394615"], ["updated_at", "2018-09-16 10:57:01.394615"]]
+   (1.7ms)  commit transaction
+=> #<Wine:0x00007fb4f676b580
+ id: 13,
+ name: "La Marimorena",
+ style: "Albarino",
+ winery_id: 5,
+ created_at: Sun, 16 Sep 2018 10:57:01 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:57:01 UTC +00:00>
+[21] pry(main)> w = Wine.find_by(name: "La Marimorena")
+  Wine Load (0.5ms)  SELECT  "wines".* FROM "wines" WHERE "wines"."name" = ? LIMIT ?  [["name", "La Marimorena"], ["LIMIT", 1]]
+=> #<Wine:0x00007fb4f5b23ca0
+ id: 13,
+ name: "La Marimorena",
+ style: "Albarino",
+ winery_id: 5,
+ created_at: Sun, 16 Sep 2018 10:57:01 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:57:01 UTC +00:00>
+[22] pry(main)> w.ratings.create score:50              
+   (0.1ms)  begin transaction
+  Rating Create (0.6ms)  INSERT INTO "ratings" ("score", "wine_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 50], ["wine_id", 13], ["created_at", "2018-09-16 10:58:27.090159"], ["updated_at", "2018-09-16 10:58:27.090159"]]
+   (1.8ms)  commit transaction
+=> #<Rating:0x00007fb4fa0a49a0
+ id: 4,
+ score: 50,
+ wine_id: 13,
+ created_at: Sun, 16 Sep 2018 10:58:27 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:58:27 UTC +00:00>
+[23] pry(main)> w.ratings.create score:45
+   (0.1ms)  begin transaction
+  Rating Create (0.4ms)  INSERT INTO "ratings" ("score", "wine_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 45], ["wine_id", 13], ["created_at", "2018-09-16 10:58:30.782881"], ["updated_at", "2018-09-16 10:58:30.782881"]]
+   (1.8ms)  commit transaction
+=> #<Rating:0x00007fb4fb04a1c0
+ id: 5,
+ score: 45,
+ wine_id: 13,
+ created_at: Sun, 16 Sep 2018 10:58:30 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:58:30 UTC +00:00>
+[24] pry(main)> w.ratings.create score:21
+   (0.1ms)  begin transaction
+  Rating Create (0.6ms)  INSERT INTO "ratings" ("score", "wine_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 21], ["wine_id", 13], ["created_at", "2018-09-16 10:58:33.088463"], ["updated_at", "2018-09-16 10:58:33.088463"]]
+   (1.9ms)  commit transaction
+=> #<Rating:0x00007fb4f6ae8c30
+ id: 6,
+ score: 21,
+ wine_id: 13,
+ created_at: Sun, 16 Sep 2018 10:58:33 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:58:33 UTC +00:00>
+[25] pry(main)> w = Wine.find_by(name: "Macho Man")    
+  Wine Load (0.2ms)  SELECT  "wines".* FROM "wines" WHERE "wines"."name" = ? LIMIT ?  [["name", "Macho Man"], ["LIMIT", 1]]
+=> #<Wine:0x00007fb4f5921538
+ id: 12,
+ name: "Macho Man",
+ style: "Monastrell",
+ winery_id: 5,
+ created_at: Sun, 16 Sep 2018 10:55:46 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:55:46 UTC +00:00>
+[26] pry(main)> w.ratings.create score:13          
+   (0.1ms)  begin transaction
+  Rating Create (0.6ms)  INSERT INTO "ratings" ("score", "wine_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 13], ["wine_id", 12], ["created_at", "2018-09-16 10:58:46.519961"], ["updated_at", "2018-09-16 10:58:46.519961"]]
+   (1.8ms)  commit transaction
+=> #<Rating:0x00007fb4f693cb70
+ id: 7,
+ score: 13,
+ wine_id: 12,
+ created_at: Sun, 16 Sep 2018 10:58:46 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:58:46 UTC +00:00>
+[27] pry(main)> w.ratings.create score:33
+   (0.1ms)  begin transaction
+  Rating Create (0.5ms)  INSERT INTO "ratings" ("score", "wine_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 33], ["wine_id", 12], ["created_at", "2018-09-16 10:58:48.750183"], ["updated_at", "2018-09-16 10:58:48.750183"]]
+   (1.8ms)  commit transaction
+=> #<Rating:0x00007fb4f5936d98
+ id: 8,
+ score: 76,
+ wine_id: 12,
+ created_at: Sun, 16 Sep 2018 10:58:48 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:58:48 UTC +00:00>
+[28] pry(main)> w.ratings.create score:45
+   (0.1ms)  begin transaction
+  Rating Create (0.5ms)  INSERT INTO "ratings" ("score", "wine_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["score", 45], ["wine_id", 12], ["created_at", "2018-09-16 10:59:03.253234"], ["updated_at", "2018-09-16 10:59:03.253234"]]
+   (1.8ms)  commit transaction
+=> #<Rating:0x00007fb4fb0923d0
+ id: 9,
+ score: 45,
+ wine_id: 12,
+ created_at: Sun, 16 Sep 2018 10:59:03 UTC +00:00,
+ updated_at: Sun, 16 Sep 2018 10:59:03 UTC +00:00>
