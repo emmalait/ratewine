@@ -1,0 +1,11 @@
+class CreateWineClubs < ActiveRecord::Migration[5.2]
+  def change
+    create_table :wine_clubs do |t|
+      t.string :name
+      t.integer :founded
+      t.string :city
+
+      t.timestamps
+    end
+  end
+end

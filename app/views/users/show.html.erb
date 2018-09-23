@@ -4,6 +4,16 @@
 
 <p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %> </p>
 
+<p>member of</p>
+
+<ul>
+    <% @user.wine_clubs.each do |wine_club| %>
+        <li>
+            <%= link_to wine_club.name, wine_club_path(wine_club) %>
+        </li>
+    <% end %>
+</ul>
+
 <h2>Ratings</h2>
 
 <ul>
