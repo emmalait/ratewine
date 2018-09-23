@@ -63,21 +63,22 @@ class WineriesController < ApplicationController
   end
 
   private
-    def authenticate
-      authenticate_or_request_with_http_basic do |username, password|
-        username == "admin" and password == "secret"
-      end
-    end
-  
 
+  def authenticate
+    admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_winery
-      @winery = Winery.find(params[:id])
+    authenticate_or_request_with_http_basic do |username, password|
+      admin_accounts[username] == password
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def winery_params
-      params.require(:winery).permit(:name, :year)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_winery
+    @winery = Winery.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def winery_params
+    params.require(:winery).permit(:name, :year)
+  end
 end

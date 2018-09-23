@@ -1,20 +1,22 @@
 class Winery < ApplicationRecord
-    has_many :wines, dependent: :destroy
-    has_many :ratings, through: :wines
+  include RatingAverage
 
-    def print_report
-        puts self.name
-        puts "established in year #{self.year}"
-        puts "number of wines #{self.wines.count}"
-    end
+  has_many :wines, dependent: :destroy
+  has_many :ratings, through: :wines
 
-    def restart
-        self.year = 2018
-        puts "changed year to #{year}"
-    end
+  validates :name, presence: true
+  validates :year, numericality: {  greater_than_or_equal_to: 1040,
+                                    less_than_or_equal_to: 2018,
+                                    only_integer: true }
 
-    def average_rating
-        self.ratings.average(:score)
-    end
+  def print_report
+    puts name
+    puts "established in year #{year}"
+    puts "number of wines #{wines.count}"
+  end
 
+  def restart
+    self.year = 2018
+    puts "changed year to #{year}"
+  end
 end

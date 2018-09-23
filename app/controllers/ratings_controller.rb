@@ -1,16 +1,16 @@
 class RatingsController < ApplicationController
-    before_action :set_rating, only: [:show, :edit, :update, :destroy]
+  before_action :set_rating, only: [:show, :edit, :update, :destroy]
 
-    # GET /ratings
-    # GET /ratings.json
-    def index
-        @ratings = Rating.all
-    end
+  # GET /ratings
+  # GET /ratings.json
+  def index
+    @ratings = Rating.all
+  end
 
-    # GET /ratings/1
-    # GET /ratings/1.json
-    def show
-    end
+  # GET /ratings/1
+  # GET /ratings/1.json
+  def show
+  end
 
   # GET /ratings/new
   def new
@@ -25,8 +25,15 @@ class RatingsController < ApplicationController
   # POST /ratings
   # POST /ratings.json
   def create
-    Rating.create params.require(:rating).permit(:score, :wine_id)
-    redirect_to ratings_path
+    @rating = Rating.create params.require(:rating).permit(:score, :wine_id)
+    @rating.user = current_user
+
+    if @rating.save
+      redirect_to user_path current_user
+    else
+      @wines = Wine.all
+      render :new
+    end
   end
 
   # PATCH/PUT /ratings/1
@@ -46,19 +53,20 @@ class RatingsController < ApplicationController
   # DELETE /ratings/1
   # DELETE /ratings/1.json
   def destroy
-    rating = Rating.find(params[:id])
-    rating.delete
-    redirect_to ratings_path
+    rating = Rating.find params[:id]
+    rating.delete if current_user == rating.user
+    redirect_to user_path(current_user)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rating
-      @rating = Rating.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def rating_params
-      params.require(:rating).permit(:score, :wine_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rating
+    @rating = Rating.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def rating_params
+    params.require(:rating).permit(:score, :wine_id)
+  end
 end
