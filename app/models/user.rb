@@ -14,4 +14,16 @@ class User < ApplicationRecord
   has_many :wines, through: :ratings
   has_many :memberships
   has_many :wine_clubs, through: :memberships
+
+  def favourite_wine
+    return nil if ratings.empty?
+
+    ratings.order(score: :desc).limit(1).first.wine
+  end
+
+  def favourite_style
+  end
+
+  def favourite_winery
+  end
 end

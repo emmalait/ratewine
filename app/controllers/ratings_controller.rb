@@ -28,7 +28,10 @@ class RatingsController < ApplicationController
     @rating = Rating.create params.require(:rating).permit(:score, :wine_id)
     @rating.user = current_user
 
-    if @rating.save
+    if current_user.nil?
+      redirect_to signin_path, notice: 'you should be signed in'
+    elsif @rating.save
+      current_user.ratings << @rating
       redirect_to user_path current_user
     else
       @wines = Wine.all

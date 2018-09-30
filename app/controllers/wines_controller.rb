@@ -1,5 +1,6 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: [:show, :edit, :update, :destroy]
+  before_action :set_wineries_and_styles_for_template, only: [:new, :edit]
 
   # GET /wines
   # GET /wines.json
@@ -15,14 +16,10 @@ class WinesController < ApplicationController
   # GET /wines/new
   def new
     @wine = Wine.new
-    @wineries = Winery.all
-    @styles = ["Riesling", "Merlot", "Chardonnay", "Zinfandel", "Cabernet Sauvignon", "Monastrell", "Albarino", "Garnacha"]
   end
 
   # GET /wines/1/edit
   def edit
-    @wineries = Winery.all
-    @styles =   @styles = ["Riesling", "Merlot", "Chardonnay", "Zinfandel", "Cabernet Sauvignon", "Monastrell", "Albarino", "Garnacha"]
   end
 
   # POST /wines
@@ -35,8 +32,7 @@ class WinesController < ApplicationController
         format.html { redirect_to wines_path, notice: 'Wine was successfully created.' }
         format.json { render :show, status: :created, location: @wine }
       else
-        @wineries = Winery.all
-        @styles = @styles = ["Riesling", "Merlot", "Chardonnay", "Zinfandel", "Cabernet Sauvignon", "Monastrell", "Albarino", "Garnacha"]
+        set_wineries_and_styles_for_template
         format.html { render :new }
         format.json { render json: @wine.errors, status: :unprocessable_entity }
       end
@@ -77,5 +73,10 @@ class WinesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def wine_params
     params.require(:wine).permit(:name, :style, :winery_id)
+  end
+
+  def set_wineries_and_styles_for_template
+    @wineries = Winery.all
+    @styles = ["Riesling", "Merlot", "Chardonnay", "Zinfandel", "Cabernet Sauvignon", "Monastrell", "Albarino", "Garnacha"]
   end
 end
