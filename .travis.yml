@@ -1,8 +1,13 @@
 language: ruby
-
 rvm:
 - 2.5.1
-
 script:
-- bundle exec rails db:migrate 
+- bundle exec rails db:migrate
 - bundle exec rspec -fd spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: P4yKfoU+yDvOBm6s4iEotiPM+/RQJNOqh3+UoNDbKPCmKGZFJbeRcWVN2az2OhFqFouRlvFwt+QA+aJtvWWirWKYBFZUvGm3XGyHVIN7kmFPvQBrDHjtZp04J8yAsbX51V2Hp4F078DohrIZ58tafQdQQk8OoW+UDSPtOQ9SjwziGdtPTXqoTgq37N1bjCPafMt9nUi65gsTrZzDA6KhvJboOeIL3mClX4GTxsSy933CYiLKLIr3DrNRYILb4llsWLKw2RTQL/SDd4I6kQj8hNOv5E3HOlhvlJMV2HD+ww9h+FMiaNrcnQokc4bEu1Y0ny0sAsHpFilAOy5hYAfDBzEji2gA8SiarzgD8FdNp9vNRrgWBo3NZ8LklojBGCVIx21hzp/OQjtpaO2J9V7Ik55pCf64Vw+u9Ep84VB/lZFbj+Oz7d01HWrtpyFYzpeSDK5gq7NZSpLKD+pUWQ/CG9icNaPrpCL0HZ+LQwhKCwuTPgm6fNwHNayHoxhSQnNG8ttJn0rYd1T/Kw+SNOKGoKrTO4YxTDCkDBigplDkCz4R9jBiujxlqY+oZmduCOP6uZJpZXSK3kFRA4vzwPffTkBG1VxdwZ0cLHC/Wo6b4RB7X7Q3ZooqJwJsvDc+5kZ1k3s4tnedZdER1RmFojj7QKm6tBTnGd8RjCH1dL28Rhs=
+  app: ratewine
+  on:
+    repo: emmalait/ratewine
