@@ -66,7 +66,7 @@
         1,
         null,
         1,
-        12,
+        14,
         null,
         null
       ],
@@ -123,11 +123,11 @@
         null,
         null,
         1,
-        6,
+        8,
         null,
-        6,
-        5,
-        5,
+        8,
+        7,
+        7,
         null,
         1,
         null,
@@ -148,9 +148,13 @@
         1,
         null,
         1,
-        77,
+        110,
         null,
-        53,
+        86,
+        null,
+        null,
+        1,
+        4,
         null,
         null
       ],
@@ -227,7 +231,7 @@
         null,
         null,
         1,
-        10,
+        12,
         null,
         null,
         null,
@@ -410,14 +414,6 @@
         null,
         1,
         null,
-        1,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
         null,
         1,
         1,
@@ -430,6 +426,7 @@
         null
       ],
       "/Users/papercaramel/Uni/ratewine/app/controllers/wines_controller.rb": [
+        1,
         1,
         1,
         1,
@@ -607,6 +604,7 @@
       "/Users/papercaramel/Uni/ratewine/app/controllers/wine_clubs_controller.rb": [
         0,
         0,
+        0,
         null,
         null,
         null,
@@ -693,6 +691,6 @@
         0
       ]
     },
-    "timestamp": 1538304778
+    "timestamp": 1538307423
   }
 }

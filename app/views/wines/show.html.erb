@@ -23,5 +23,6 @@
 <% end %>
 </p>
 
-<%= link_to 'Edit', edit_wine_path(@wine) %> |
-<%= link_to 'Back', wines_path %>
+<p><%= link_to('Edit', edit_wine_path(@wine)) if current_user %></p>
+<p><%= link_to('Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
+<p><%= link_to 'Back', wines_path %></p>

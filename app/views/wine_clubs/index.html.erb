@@ -15,12 +15,9 @@
   <tbody>
     <% @wine_clubs.each do |wine_club| %>
       <tr>
-        <td><%= wine_club.name %></td>
+        <td><%= link_to wine_club.name, wine_club %></td>
         <td><%= wine_club.founded %></td>
         <td><%= wine_club.city %></td>
-        <td><%= link_to 'Show', wine_club %></td>
-        <td><%= link_to 'Edit', edit_wine_club_path(wine_club) %></td>
-        <td><%= link_to 'Destroy', wine_club, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Wine Club', new_wine_club_path %>
+<%= link_to('New wine club', new_wine_club_path) if current_user %>

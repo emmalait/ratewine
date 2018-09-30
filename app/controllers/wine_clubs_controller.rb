@@ -1,5 +1,6 @@
 class WineClubsController < ApplicationController
   before_action :set_wine_club, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /wine_clubs
   # GET /wine_clubs.json
@@ -10,7 +11,6 @@ class WineClubsController < ApplicationController
   # GET /wine_clubs/1
   # GET /wine_clubs/1.json
   def show
-    @memberships = Membership.find(params[:id])
   end
 
   # GET /wine_clubs/new

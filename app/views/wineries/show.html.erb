@@ -6,11 +6,14 @@
 
 <p> Number of wines: <%= @winery.wines.count %></p>
 
-<p>
+
+<ul>
   <% @winery.wines.each do |wine| %>
-    <%= link_to wine.name, wine %>
+    <li>
+      <%= link_to wine.name, wine %>
+    </li>
   <% end %>
-</p>
+</ul>
 
 <p>
 <% if @winery.ratings.empty? %>
@@ -20,5 +23,6 @@
 <% end %>
 </p>
 
-<%= link_to 'Edit', edit_winery_path(@winery) %> |
-<%= link_to 'Back', wineries_path %>
+<p><%= link_to('Edit', edit_winery_path(@winery)) if current_user %></p>
+<p><%= link_to('Destroy', @winery, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
+<p><%= link_to 'Back', wineries_path %></p>

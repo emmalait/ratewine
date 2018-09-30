@@ -34,9 +34,3 @@ RSpec.describe Wine, type: :model do
     expect(Wine.count).to eq(0)
   end
 end
-
-def create_wine_with_rating(object, score)
-  wine = FactoryBot.create(:wine)
-  FactoryBot.create(:rating, wine: wine, score: score, user: object[:user])
-  wine
-end
