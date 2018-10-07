@@ -82,6 +82,21 @@ RSpec.describe User, type: :model do
     it "without ratings does not have one" do
       expect(user.favourite_style).to eq(nil)
     end
+
+    it "is the style of the only rated if only one rating" do
+      create_wine_with_rating({ user: user, style: 'Riesling' }, 25)
+
+      expect(user.favourite_style).to eq('Riesling')
+    end  
+    
+    it "is the style of with highest average if several rated" do
+      create_wines_with_many_ratings({ user: user, style: 'Riesling' }, 10, 20, 15, 7, 9)
+      create_wines_with_many_ratings({ user: user, style: 'Merlot' }, 25, 45 )
+      create_wines_with_many_ratings({ user: user, style: 'Zinfandel' }, 50, 10, 8)
+
+      expect(user.favourite_style).to eq('Merlot')
+    end 
+
   end
 
   describe "favourite winery" do
@@ -94,6 +109,25 @@ RSpec.describe User, type: :model do
     it "without ratings does not have one" do
       expect(user.favourite_winery).to eq(nil)
     end
+
+    it "is the style of the only rated if only one rating" do
+      favourite = FactoryBot.create(:winery, name: 'PrimeWine')
+      create_wine_with_rating({ user: user, winery: favourite }, 25)
+
+      expect(user.favourite_winery).to eq(favourite)
+    end  
+    
+    it "is the style of with highest average if several rated" do
+      favourite = FactoryBot.create(:winery, name: 'PrimeWine')
+      w1 = FactoryBot.create(:winery)
+      w2 = FactoryBot.create(:winery)
+      create_wines_with_many_ratings({ user: user, winery: w1 }, 10, 20, 15, 7, 9)
+      create_wines_with_many_ratings({ user: user, winery: favourite }, 25, 45 )
+      create_wines_with_many_ratings({ user: user, winery: w2 }, 50, 10, 8)
+
+      expect(user.favourite_winery).to eq(favourite)
+    end 
+
   end
 
 end

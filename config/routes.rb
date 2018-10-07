@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  resources :styles
   resources :memberships
   resources :wine_clubs
   resources :users
   resources :wines
   resources :wineries
   resources :ratings
+  resources :places, only: [:index, :show]
   root 'wineries#index'
   get 'kaikki_viinit', to: 'wines#index'
   #get 'ratings', to: 'ratings#index'
@@ -15,6 +17,8 @@ Rails.application.routes.draw do
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
   resource :session, only: [:new, :create, :destroy]
+  get 'places', to: 'places#index'
+  post 'places', to: 'places#search'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

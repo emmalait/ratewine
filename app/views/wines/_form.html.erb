@@ -17,11 +17,11 @@
   </div>
 
   <div class="field">
-    <%= form.select :style, options_for_select(@styles) %>
+    <%= form.select :style, options_for_select(@styles, selected: @wine.style) %>
   </div>
 
   <div class="field">
-    <%= form.select :winery_id, options_from_collection_for_select(@wineries, :id, :name) %>
+    <%= form.select :winery_id, options_from_collection_for_select(@wineries, :id, :name, selected: @wine.winery) %>
   </div>
 
   <div class="actions">

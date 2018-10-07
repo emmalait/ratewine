@@ -2,7 +2,16 @@
 
 <h1><%= @user.username %></h1>
 
-<p>has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %> </p>
+<% if @user.ratings.empty? %>
+  <p>has not rated any wines</p>
+<% else %>
+  <p>
+    has made <%= pluralize(@user.ratings.count, 'rating') %>, average <%= @user.average_rating %>
+  </p> 
+  <p>Favourite wine: <%= @user.favourite_wine.name %></p>
+  <p>Favourite winery: <%= @user.favourite_winery.name %></p>
+  <p>Preferred style: <%= @user.favourite_style %></p>
+<% end %>
 
 <p>member of</p>
 

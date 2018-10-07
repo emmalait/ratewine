@@ -1,9 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @wine.name %>
-</p>
+<h2><%= @wine.name %></h2>
 
 <p>
   <strong>Style:</strong>
@@ -23,6 +20,18 @@
 <% end %>
 </p>
 
+<% if current_user %>
+  <h4>give a rating:</h4>
+
+  <%= form_for(@rating) do |f| %>
+    <%= f.hidden_field :wine_id %>
+    score: <%= f.number_field :score %>
+    <%= f.submit %>
+  
+  <% end %>
+<% end %>
+
 <p><%= link_to('Edit', edit_wine_path(@wine)) if current_user %></p>
-<p><%= link_to('Destroy', wine, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
+<p><%= link_to('Destroy', @wine, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
 <p><%= link_to 'Back', wines_path %></p>
+<% end %>

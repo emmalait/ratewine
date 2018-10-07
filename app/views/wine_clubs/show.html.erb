@@ -23,6 +23,24 @@
     <% end %>
 </ul>
 
+<% if current_user && @wine_club.users.exclude?(current_user)  %>
+  <p>
+    <%= form_for(@membership) do |f| %>
+    <%= f.hidden_field :wine_club_id %>
+    <%= f.submit value: "Join" %>
+    <% end %>
+  </p>
+<% end %>
+
+<% if current_user && @wine_club.users.include?(current_user)  %>
+  <p>
+    <%= form_for(@membership, method: "delete") do |f| %>
+    <%= f.hidden_field :wine_club_id %>
+    <%= f.submit value: "End membership" %>
+    <% end %>
+  </p>
+<% end %>
+
 <p><%= link_to('Edit', edit_wine_club_path(@wine_club)) if current_user %></p>
 <p><%= link_to('Destroy', @wine_club, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
 <p><%= link_to 'Back', wine_clubs_path %></p>
