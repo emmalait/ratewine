@@ -6,7 +6,7 @@ script:
 - bundle exec rspec -fd spec
 env:
 - BEERMAPPING_APIKEY="8dce295273bcd50ed0a81c4ed114520d"
-- APIXU-APIKEY="231436d129204cc5b7c141115181310"
+- APIXU_APIKEY="231436d129204cc5b7c141115181310"
 deploy:
   provider: heroku
   api_key:
