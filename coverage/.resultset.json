@@ -117,7 +117,6 @@
         1,
         2,
         null,
-        null,
         null
       ],
       "/Users/papercaramel/Uni/ratewine/lib/beermapping_api.rb": [
@@ -162,6 +161,21 @@
       "/Users/papercaramel/Uni/ratewine/app/models/place.rb": [
         1,
         1,
+        5,
+        null,
+        null
+      ],
+      "/Users/papercaramel/Uni/ratewine/lib/apixu_api.rb": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
         0,
         null,
         null
@@ -181,6 +195,8 @@
         3,
         1,
         null,
+        2,
+        2,
         2,
         null,
         null,
@@ -368,7 +384,6 @@
       ],
       "/Users/papercaramel/Uni/ratewine/app/controllers/ratings_controller.rb": [
         1,
-        null,
         null,
         null,
         1,
@@ -631,7 +646,6 @@
         null,
         null,
         0,
-        null,
         0,
         null,
         null,
@@ -764,6 +778,7 @@
         null,
         0,
         null,
+        null,
         0,
         0,
         0,
@@ -868,6 +883,6 @@
         0
       ]
     },
-    "timestamp": 1539439137
+    "timestamp": 1539466163
   }
 }
