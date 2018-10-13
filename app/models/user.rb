@@ -12,7 +12,7 @@ class User < ApplicationRecord
                         length: { minimum: 3,
                                   maximum: 30 }
   validates :password,  length: { minimum: 4 },
-                        format: { 
+                        format: {
                           with: /\A(?=.*[a-z]+)(=?.*[A-Z]+)(=?.*[1-9]+)\z/,
                           message: "must include at least one capital letter and one number."
                         }

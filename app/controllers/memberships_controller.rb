@@ -10,7 +10,6 @@ class MembershipsController < ApplicationController
   # GET /memberships/1
   # GET /memberships/1.json
   def show
-    
   end
 
   # GET /memberships/new

@@ -1,5 +1,4 @@
 class RatingsController < ApplicationController
-
   # GET /ratings
   # GET /ratings.json
   def index

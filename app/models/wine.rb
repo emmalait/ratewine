@@ -18,5 +18,4 @@ class Wine < ApplicationRecord
   def to_s
     "#{name} (#{winery.name})"
   end
-
 end
