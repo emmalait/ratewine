@@ -1,6 +1,6 @@
 class WineClub < ApplicationRecord
   has_many :memberships
-  has_many :members, through: :memberships, source: :user
+  has_many :users, through: :memberships
 
   def to_s
     "#{name} (#{founded})"
