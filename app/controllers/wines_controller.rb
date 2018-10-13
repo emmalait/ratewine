@@ -1,6 +1,6 @@
 class WinesController < ApplicationController
   before_action :set_wine, only: [:show, :edit, :update, :destroy]
-  before_action :set_wineries_and_styles_for_template, only: [:new, :edit]
+  before_action :set_wineries_and_styles_for_template, only: [:new, :edit, :create]
   before_action :ensure_that_signed_in, except: [:index, :show]
 
   # GET /wines
@@ -75,11 +75,11 @@ class WinesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def wine_params
-    params.require(:wine).permit(:name, :style, :winery_id)
+    params.require(:wine).permit(:name, :style_id, :winery_id)
   end
 
   def set_wineries_and_styles_for_template
     @wineries = Winery.all
-    @styles = ["Riesling", "Merlot", "Chardonnay", "Zinfandel", "Cabernet Sauvignon", "Monastrell", "Albarino", "Garnacha"]
+    @styles = Style.all
   end
 end

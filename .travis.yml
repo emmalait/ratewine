@@ -4,6 +4,8 @@ rvm:
 script:
 - bundle exec rails db:migrate
 - bundle exec rspec -fd spec
+ev:
+- BEERMAPPING_APIKEY="8dce295273bcd50ed0a81c4ed114520d"
 deploy:
   provider: heroku
   api_key:
@@ -11,3 +13,5 @@ deploy:
   app: ratewine
   on:
     repo: emmalait/ratewine
+
+

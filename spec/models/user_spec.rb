@@ -74,6 +74,7 @@ RSpec.describe User, type: :model do
 
   describe "favourite style" do
     let(:user) { FactoryBot.create(:user) }
+    let!(:riesling) { FactoryBot.create(:style, name: 'Riesling')}
   
     it "has method for determining one" do
       expect(user).to respond_to(:favourite_style)
@@ -82,19 +83,23 @@ RSpec.describe User, type: :model do
     it "without ratings does not have one" do
       expect(user.favourite_style).to eq(nil)
     end
+  
 
     it "is the style of the only rated if only one rating" do
-      create_wine_with_rating({ user: user, style: 'Riesling' }, 25)
+      create_wine_with_rating({ user: user, style: riesling}, 25)
 
-      expect(user.favourite_style).to eq('Riesling')
+      expect(user.favourite_style).to eq(riesling)
     end  
     
     it "is the style of with highest average if several rated" do
-      create_wines_with_many_ratings({ user: user, style: 'Riesling' }, 10, 20, 15, 7, 9)
-      create_wines_with_many_ratings({ user: user, style: 'Merlot' }, 25, 45 )
-      create_wines_with_many_ratings({ user: user, style: 'Zinfandel' }, 50, 10, 8)
+      style1 = FactoryBot.create(:style)
+      style2 = FactoryBot.create(:style)
 
-      expect(user.favourite_style).to eq('Merlot')
+      create_wines_with_many_ratings({ user: user, style: style1 }, 10, 20, 15, 7, 9)
+      create_wines_with_many_ratings({ user: user, style: riesling }, 25, 45 )
+      create_wines_with_many_ratings({ user: user, style: style2 }, 50, 10, 8)
+
+      expect(user.favourite_style).to eq(riesling)
     end 
 
   end

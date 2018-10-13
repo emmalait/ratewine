@@ -1,34 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Wine, type: :model do
-  it "has name set correctly" do
-    wine = Wine.new name:"testwine"
+  let(:winery) { Winery.create name: "PrimeWine", year: 1990 }
+  let(:riesling) { Style.create name: "Riesling" }
 
-    expect(wine.name).to eq("testwine")
-  end
-
-  it "is saved with name, style and winery" do
-    winery = Winery.new name: "test", year: 2000
-    wine = Wine.new name: "testwine", style: "teststyle", winery: winery
-    wine.save
-
+  it "is created with valid input" do
+    wine = Wine.create name: "testwine", style: riesling, winery: winery
     expect(wine).to be_valid
     expect(Wine.count).to eq(1)
   end
 
   it "is not saved without name" do
-    winery = Winery.new name: "test", year: 2000
-    wine = Wine.new winery: winery
-    wine.save
+    wine = Wine.create style: riesling, winery: winery
 
     expect(wine).not_to be_valid
     expect(Wine.count).to eq(0)
   end
 
   it "is not saved without style" do
-    winery = Winery.new name: "test", year: 2000
-    wine = Wine.new name:"testwine", winery: winery
-    wine.save
+    wine = Wine.create name: "testwine", winery: winery
 
     expect(wine).not_to be_valid
     expect(Wine.count).to eq(0)

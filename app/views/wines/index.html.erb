@@ -16,7 +16,7 @@
     <% @wines.each do |wine| %>
       <tr>
         <td><%= link_to wine.name, wine %></td>
-        <td><%= wine.style %></td>
+        <td><%= link_to wine.style.name, wine.style %></td>
         <td><%= link_to wine.winery.name, wine.winery %></td>
       </tr>
     <% end %>

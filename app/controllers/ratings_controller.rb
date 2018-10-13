@@ -1,5 +1,4 @@
 class RatingsController < ApplicationController
-  before_action :set_rating, only: [:show, :edit, :update, :destroy]
 
   # GET /ratings
   # GET /ratings.json
@@ -31,7 +30,6 @@ class RatingsController < ApplicationController
     if current_user.nil?
       redirect_to signin_path, notice: 'you should be signed in'
     elsif @rating.save
-      current_user.ratings << @rating
       redirect_to user_path current_user
     else
       @wines = Wine.all

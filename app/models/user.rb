@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  has_many :ratings, dependent: :destroy
+  has_many :wines, through: :ratings
+  has_many :memberships
+  has_many :wine_clubs, through: :memberships
+
   include RatingAverage
 
   has_secure_password
@@ -7,13 +12,10 @@ class User < ApplicationRecord
                         length: { minimum: 3,
                                   maximum: 30 }
   validates :password,  length: { minimum: 4 },
-                        format: { with: /\A(?=.*[a-z]+)(=?.*[A-Z]+)(=?.*[1-9]+)\z/,
-                                  message: "must include at least one capital letter and one number." }
-
-  has_many :ratings, dependent: :destroy
-  has_many :wines, through: :ratings
-  has_many :memberships
-  has_many :wine_clubs, through: :memberships
+                        format: { 
+                          with: /\A(?=.*[a-z]+)(=?.*[A-Z]+)(=?.*[1-9]+)\z/,
+                          message: "must include at least one capital letter and one number."
+                        }
 
   def favourite_wine
     return nil if ratings.empty?

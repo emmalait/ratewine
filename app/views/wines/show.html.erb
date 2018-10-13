@@ -4,12 +4,12 @@
 
 <p>
   <strong>Style:</strong>
-  <%= @wine.style %>
+  <%= link_to @wine.style.name, @wine.style %>
 </p>
 
 <p>
   <strong>Winery:</strong>
-  <%= @wine.winery_id %>
+  <%= link_to @wine.winery.name, @wine.winery %>
 </p>
 
 <p>
@@ -29,7 +29,7 @@
     <%= f.submit %>
   
   <% end %>
-<% end %>
+
 
 <p><%= link_to('Edit', edit_wine_path(@wine)) if current_user %></p>
 <p><%= link_to('Destroy', @wine, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>

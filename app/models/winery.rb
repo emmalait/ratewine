@@ -1,6 +1,4 @@
 class Winery < ApplicationRecord
-  include RatingAverage
-
   has_many :wines, dependent: :destroy
   has_many :ratings, through: :wines
 
@@ -9,14 +7,5 @@ class Winery < ApplicationRecord
                                     less_than_or_equal_to: ->(_) { Time.now.year },
                                     only_integer: true }
 
-  def print_report
-    puts name
-    puts "established in year #{year}"
-    puts "number of wines #{wines.count}"
-  end
-
-  def restart
-    self.year = 2018
-    puts "changed year to #{year}"
-  end
+  include RatingAverage
 end

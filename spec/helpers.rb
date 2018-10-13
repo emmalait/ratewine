@@ -8,7 +8,8 @@ module Helpers
   end
 
   def create_wine_with_rating(object, score)
-    style = object[:style] ? object[:style] : 'Riesling'
+    FactoryBot.create :style, name:'Riesling' if (Style.all.count === 0)
+    style = object[:style] ? object[:style] : Style.first
     winery = object[:winery] ? object[:winery] : FactoryBot.create(:winery)
     wine = FactoryBot.create(:wine, style: style, winery: winery)
     FactoryBot.create(:rating, wine: wine, score: score, user: object[:user])

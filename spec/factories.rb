@@ -10,9 +10,14 @@ FactoryBot.define do
         year { 1990 }
     end
 
+    factory :style do
+        name { "Riesling" }
+        description { "" }
+    end
+
     factory :wine do
         name { "anonymous" }
-        style { "Riesling" }
+        style
         winery
     end
 
