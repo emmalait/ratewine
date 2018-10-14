@@ -18,4 +18,10 @@ class Wine < ApplicationRecord
   def to_s
     "#{name} (#{winery.name})"
   end
+
+  def self.top(number)
+    sorted_by_rating_in_desc_order = Wine.all.sort_by{ |w| -(w.average_rating || 0) }
+    top = sorted_by_rating_in_desc_order.take(number)
+    top
+  end
 end

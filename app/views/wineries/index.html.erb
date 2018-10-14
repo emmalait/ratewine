@@ -1,29 +1,20 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
 
 <h1>Wineries</h1>
 
-<p>Number of wineries: <%= @wineries.count %> </p>
+<h2>Active</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Year</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<p>Number of active wineries: <%= @active_wineries.count %> </p>
 
-  <tbody>
-    <% @wineries.each do |winery| %>
-      <tr>
-        <td><%= link_to winery.name, winery %></td>
-        <td><%= winery.year %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'list', wineries: @active_wineries %>
 
-<br>
+<h2>Retired</h2>
 
-<p><%= link_to('New winery', new_winery_path) if current_user %> </p>
-<p><%= link_to 'List of wines', wines_path %> </p>
+<p>Number of retired wineries: <%= @retired_wineries.count %> </p>
+
+<%= render 'list', wineries: @retired_wineries %>
+
+<p>
+  <%= link_to('New Winery', new_winery_path, class: "btn btn-primary") if current_user %> 
+  <%= link_to 'List of Wines', wines_path, class: "btn btn-secondary" %>
+</p>

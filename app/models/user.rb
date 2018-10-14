@@ -17,6 +17,12 @@ class User < ApplicationRecord
                           message: "must include at least one capital letter and one number."
                         }
 
+  def self.top(number)
+    sorted_by_ratings_in_desc_order = User.all.sort_by{ |u| u.ratings.count }
+    top = sorted_by_ratings_in_desc_order.reverse!.take(number)
+    top
+  end
+
   def favourite_wine
     return nil if ratings.empty?
 

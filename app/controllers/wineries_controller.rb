@@ -5,7 +5,9 @@ class WineriesController < ApplicationController
   # GET /wineries
   # GET /wineries.json
   def index
-    @wineries = Winery.all
+    @active_wineries = Winery.active
+    @retired_wineries = Winery.retired
+    @top_wineries = Winery.top(3)
   end
 
   # GET /wineries/1
@@ -55,11 +57,24 @@ class WineriesController < ApplicationController
   # DELETE /wineries/1
   # DELETE /wineries/1.json
   def destroy
-    @winery.destroy
-    respond_to do |format|
-      format.html { redirect_to wineries_url, notice: 'Winery was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.admin
+      @winery.destroy
+      respond_to do |format|
+        format.html { redirect_to wineries_url, notice: 'Winery was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to winery_url, notice: 'You do not have sufficient rights.'
     end
+  end
+
+  def toggle_activity
+    winery = Winery.find(params[:id])
+    winery.update_attribute :active, !winery.active
+
+    new_status = winery.active? ? "active" : "retired"
+
+    redirect_to winery, notice: "winery activity status changed to #{new_status}"
   end
 
   private
@@ -71,6 +86,6 @@ class WineriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def winery_params
-    params.require(:winery).permit(:name, :year)
+    params.require(:winery).permit(:name, :year, :active)
   end
 end

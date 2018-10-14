@@ -1,19 +1,10 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @wine_club.name %>
-</p>
 
-<p>
-  <strong>Founded:</strong>
-  <%= @wine_club.founded %>
-</p>
+<h2><%= @wine_club.name %></h2>
 
-<p>
-  <strong>City:</strong>
-  <%= @wine_club.city %>
-</p>
+<p>Location: <%= @wine_club.city %>, founded in <%= @wine_club.founded %></p>
+
+<h3>Members</h3>
 
 <ul>
     <% @wine_club.users.each do |user| %>
@@ -27,7 +18,7 @@
   <p>
     <%= form_for(@membership) do |f| %>
     <%= f.hidden_field :wine_club_id %>
-    <%= f.submit value: "Join" %>
+    <%= f.submit class:"btn btn-primary", value: "Join" %>
     <% end %>
   </p>
 <% end %>
@@ -36,11 +27,11 @@
   <p>
     <%= form_for(@membership, method: "delete") do |f| %>
     <%= f.hidden_field :wine_club_id %>
-    <%= f.submit value: "End membership" %>
+    <%= f.submit class:"btn btn-danger", value: "End membership" %>
     <% end %>
   </p>
 <% end %>
 
-<p><%= link_to('Edit', edit_wine_club_path(@wine_club)) if current_user %></p>
-<p><%= link_to('Destroy', @wine_club, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
-<p><%= link_to 'Back', wine_clubs_path %></p>
+<p><%= link_to('Edit', edit_wine_club_path(@wine_club), class:"btn btn-secondary") if current_user %> 
+<%= link_to('Destroy', @wine_club, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' }) if current_user %>
+<%= link_to 'Back', wine_clubs_path, class:"btn btn-secondary" %></p>

@@ -1,11 +1,15 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
 
-<h2><%= @winery.name %></h2>
+<h2>
+  <%= @winery.name %>
+  <% if not @winery.active %>
+    <span class="badge badge-info">retired</span>
+  <% end %>  
+</h2>
 
 <p>Established in <%= @winery.year %></p>
 
 <p> Number of wines: <%= @winery.wines.count %></p>
-
 
 <ul>
   <% @winery.wines.each do |wine| %>
@@ -23,6 +27,8 @@
 <% end %>
 </p>
 
-<p><%= link_to('Edit', edit_winery_path(@winery)) if current_user %></p>
-<p><%= link_to('Destroy', @winery, method: :delete, data: { confirm: 'Are you sure?' }) if current_user %></p>
-<p><%= link_to 'Back', wineries_path %></p>
+<p><%= link_to "change activity", toggle_activity_winery_path(@winery.id), method: :post, class: "btn btn-primary" %></p>
+
+<p><%= link_to('Edit', edit_winery_path(@winery), class:"btn btn-secondary") if current_user %> 
+<%= link_to('Destroy', @winery, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' }) if current_user %> 
+<%= link_to 'Back', wineries_path, class:"btn btn-secondary" %></p>

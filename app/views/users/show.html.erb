@@ -1,6 +1,21 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
 
-<h1><%= @user.username %></h1>
+<h1>
+    <%= @user.username %>
+    <% if @user.closed %>
+        <span class="badge badge-info">account closed</span>
+    <% end %>
+</h1>
+
+<% if not current_user.nil? %>
+    <% if current_user.admin %>
+        <% if @user.closed %>
+            <%= link_to "open account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-success" %>
+        <% else %>
+            <%= link_to "close account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+        <% end %>
+    <% end %>
+<% end %>
 
 <% if @user.ratings.empty? %>
   <p>has not rated any wines</p>
@@ -13,7 +28,7 @@
   <p>Preferred style: <%= @user.favourite_style.name %></p>
 <% end %>
 
-<p>member of</p>
+<p>Member of</p>
 
 <ul>
     <% @user.wine_clubs.each do |wine_club| %>
@@ -23,21 +38,29 @@
     <% end %>
 </ul>
 
-<h2>Ratings</h2>
+<p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseRatings" aria-expanded="false" aria-controls="collapseRatings">
+        Ratings
+    </button>
 
-<ul>
-    <% @user.ratings.each do |rating| %>
-        <li>
-            <%= rating %>
-                <% if @user == current_user %>
-                    <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <div class="collapse" id="collapseRatings">
+        <div class ="card card-body">
+            <ul>
+                <% @user.ratings.each do |rating| %>
+                    <li>
+                        <%= rating %>
+                            <% if @user == current_user %>
+                                <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+                            <% end %>
+                    </li>
                 <% end %>
-        </li>
-    <% end %>
-</ul>
+            </ul>
+        </div>
+    </div>
+</p>
 
 <% if @user == current_user %>
-    <%= link_to 'Edit', edit_user_path(@user) %> | 
-    <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+    <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-secondary" %> 
+    <%= link_to 'Destroy', @user, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %> 
 <% end %>
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path, class:"btn btn-secondary" %>

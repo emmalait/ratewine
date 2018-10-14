@@ -1,8 +1,9 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
 
 <h1>Wines</h1>
 
-<table>
+<p>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -23,7 +24,7 @@
   </tbody>
 </table>
 
-<br>
+</p>
 
 <p><%= link_to('New wine', new_wine_path) if current_user %></p>
 

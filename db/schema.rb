@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_13_111636) do
+ActiveRecord::Schema.define(version: 2018_10_14_201035) do
 
   create_table "memberships", force: :cascade do |t|
     t.integer "wine_club_id"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 2018_10_13_111636) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.boolean "admin"
+    t.boolean "closed"
   end
 
   create_table "wine_clubs", force: :cascade do |t|
@@ -54,6 +56,7 @@ ActiveRecord::Schema.define(version: 2018_10_13_111636) do
     t.integer "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active"
   end
 
   create_table "wines", force: :cascade do |t|

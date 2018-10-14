@@ -26,26 +26,26 @@ describe "Rating" do
         expect(wine1.average_rating).to eq(15.0)
     end
 
-    it "should not have any before been created" do
-        visit ratings_path
-        expect(page).to have_content 'Ratings'
-        expect(page).to have_content 'Number of ratings: 0'
-    end
+    #it "should not have any before been created" do
+    #    visit ratings_path
+    #    expect(page).to have_content 'Ratings'
+    #    expect(page).to have_content 'Number of ratings: 0'
+    #end
 
-    describe "when ratings exist" do
+    #describe "when ratings exist" do
+    #
+    #    before :each do
+    #        FactoryBot.create(:rating, wine: wine1, score: 15, user: user)
+    #        FactoryBot.create(:rating, wine: wine2, score: 25, user: user)
+    #        
+    #        visit ratings_path
+    #    end
 
-        before :each do
-            FactoryBot.create(:rating, wine: wine1, score: 15, user: user)
-            FactoryBot.create(:rating, wine: wine2, score: 25, user: user)
-            
-            visit ratings_path
-        end
-
-        it "lists the existing ratings and their total count" do
-            expect(page).to have_content "Number of ratings: #{Rating.count}"
-            Rating.all.each do |rating_wine|
-                expect(page).to have_content rating_wine
-            end
-        end
-    end
+    #    it "lists the existing ratings and their total count" do
+    #        expect(page).to have_content "Number of ratings: #{Rating.count}"
+    #        Rating.all.each do |rating_wine|
+    #            expect(page).to have_content rating_wine
+    #        end
+    #    end
+    #end
 end

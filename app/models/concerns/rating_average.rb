@@ -2,6 +2,10 @@ module RatingAverage
   extend ActiveSupport::Concern
 
   def average_rating
-    ratings.average(:score)
+    if ratings.count.zero?
+      0
+    else
+      ratings.average(:score)
+    end
   end
 end

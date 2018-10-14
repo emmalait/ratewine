@@ -7,6 +7,7 @@ class WinesController < ApplicationController
   # GET /wines.json
   def index
     @wines = Wine.all
+    @top_wines = Wine.top 5
   end
 
   # GET /wines/1
@@ -59,10 +60,14 @@ class WinesController < ApplicationController
   # DELETE /wines/1
   # DELETE /wines/1.json
   def destroy
-    @wine.destroy
-    respond_to do |format|
-      format.html { redirect_to wines_url, notice: 'Wine was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.admin
+      @wine.destroy
+      respond_to do |format|
+        format.html { redirect_to wines_url, notice: 'Wine was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to wine_url, notice: 'You do not have sufficient rights.'
     end
   end
 

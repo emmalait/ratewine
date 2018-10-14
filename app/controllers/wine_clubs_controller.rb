@@ -60,10 +60,14 @@ class WineClubsController < ApplicationController
   # DELETE /wine_clubs/1
   # DELETE /wine_clubs/1.json
   def destroy
-    @wine_club.destroy
-    respond_to do |format|
-      format.html { redirect_to wine_clubs_url, notice: 'Wine club was successfully destroyed.' }
-      format.json { head :no_content }
+    if current_user.admin
+      @wine_club.destroy
+      respond_to do |format|
+        format.html { redirect_to wine_clubs_url, notice: 'Wine club was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to wine_club_url, notice: 'You do not have sufficient rights.'
     end
   end
 
