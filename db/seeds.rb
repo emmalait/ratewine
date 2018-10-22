@@ -6,14 +6,35 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-w1 = Winery.create name:"Charles Smith Wines", year: 2001
-w2 = Winery.create name:"Barefoot", year: 1986
-w3 = Winery.create name:"PrimeWine", year:2000
+users = 400             # jos koneesi on hidas, riittää esim 200
+wineries = 200         # jos koneesi on hidas, riittää esim 100
+wines_in_winery = 50
+ratings_per_user = 30
 
-w1.wines.create name:"Kungfu Girl", style:"Riesling"
-w1.wines.create name:"The Velvet Devil", style:"Merlot"
-w1.wines.create name:"Eve", style:"Chardonnay"
-w2.wines.create name:"Merlot", style:"Merlot"
-w2.wines.create name:"Zinfandel", style:"Zinfandel"
-w3.wines.create name:"Prohibition Zinfandel", style:"Zinfandel"
-w3.wines.create name:"Prohibition Cabernet Sauvignon", style:"Cabernet Sauvignon"
+(1..users).each do |i|
+  User.create! username: "user_#{i}", password:"Passwd1", password_confirmation: "Passwd1"
+end
+
+(1..wineries).each do |i|
+  Winery.create! name:"Winery_#{i}", year: 1900, active: true
+end
+
+bulk = Style.create! name: "Bulk", description: "cheap, not much taste"
+
+Winery.all.each do |b|
+  n = rand(wines_in_winery)
+  (1..n).each do |i|
+    wine = Wine.create! name:"Wine #{b.id} -- #{i}", style:bulk, winery:b
+    b.wines << wine
+  end
+end
+
+User.all.each do |u|
+  n = rand(ratings_per_user)
+  wines = Wine.all.shuffle
+  (1..n).each do |i|
+    r = Rating.new score:(1+rand(50))
+    wines[i].ratings << r
+    u.ratings << r
+  end
+end

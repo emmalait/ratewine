@@ -2,6 +2,8 @@
 
 <h1>Wineries</h1>
 
+<% cache "winerylist", skip_digest: true do %>
+
 <h2>Active</h2>
 
 <p>Number of active wineries: <%= @active_wineries.count %> </p>
@@ -13,6 +15,8 @@
 <p>Number of retired wineries: <%= @retired_wineries.count %> </p>
 
 <%= render 'list', wineries: @retired_wineries %>
+
+<% end %>
 
 <p>
   <%= link_to('New Winery', new_winery_path, class: "btn btn-primary") if current_user %> 

@@ -28,5 +28,8 @@ Rails.application.routes.draw do
   get 'places', to: 'places#index'
   post 'places', to: 'places#search'
 
+  get 'winelist', to:'wines#list'
+  get 'winerylist', to:'wineries#list'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

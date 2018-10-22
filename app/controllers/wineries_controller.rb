@@ -1,13 +1,17 @@
 class WineriesController < ApplicationController
   before_action :set_winery, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
 
   # GET /wineries
   # GET /wineries.json
   def index
+    return if request.format.html? && fragment_exist?("winerylist")
+
+    @wineries = Winery.all
     @active_wineries = Winery.active
     @retired_wineries = Winery.retired
-    @top_wineries = Winery.top(3)
+    
+
   end
 
   # GET /wineries/1
@@ -27,6 +31,8 @@ class WineriesController < ApplicationController
   # POST /wineries
   # POST /wineries.json
   def create
+    expire_fragment('winerylist')
+
     @winery = Winery.new(winery_params)
 
     respond_to do |format|
@@ -43,6 +49,7 @@ class WineriesController < ApplicationController
   # PATCH/PUT /wineries/1
   # PATCH/PUT /wineries/1.json
   def update
+    expire_fragment('winerylist')
     respond_to do |format|
       if @winery.update(winery_params)
         format.html { redirect_to @winery, notice: 'Winery was successfully updated.' }
@@ -57,6 +64,7 @@ class WineriesController < ApplicationController
   # DELETE /wineries/1
   # DELETE /wineries/1.json
   def destroy
+    expire_fragment('winerylist')
     if current_user.admin
       @winery.destroy
       respond_to do |format|
@@ -75,6 +83,9 @@ class WineriesController < ApplicationController
     new_status = winery.active? ? "active" : "retired"
 
     redirect_to winery, notice: "winery activity status changed to #{new_status}"
+  end
+
+  def list
   end
 
   private
