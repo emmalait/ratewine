@@ -1,5 +1,7 @@
 <p id="notice"></p>
 
+<% cache @winery do %>
+
 <h2>
   <%= @winery.name %>
   <% if not @winery.active %>
@@ -26,6 +28,8 @@
  Has <%= pluralize(@winery.ratings.count, 'rating') %>, average <%= @winery.average_rating %>
 <% end %>
 </p>
+
+<% end %>
 
 <p><%= link_to "change activity", toggle_activity_winery_path(@winery.id), method: :post, class: "btn btn-primary" %></p>
 

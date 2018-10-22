@@ -1,5 +1,5 @@
 class Wine < ApplicationRecord
-  belongs_to :winery
+  belongs_to :winery, touch: true
   belongs_to :style
   has_many :ratings, dependent: :destroy
   has_many :raters, -> { distinct }, through: :ratings, source: :user
