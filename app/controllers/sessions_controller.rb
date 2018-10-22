@@ -29,6 +29,5 @@ class SessionsController < ApplicationController
   end
 
   def create_oauth
-    binding.pry
   end
 end

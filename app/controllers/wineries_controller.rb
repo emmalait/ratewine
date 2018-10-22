@@ -10,8 +10,6 @@ class WineriesController < ApplicationController
     @wineries = Winery.all
     @active_wineries = Winery.active
     @retired_wineries = Winery.retired
-    
-
   end
 
   # GET /wineries/1

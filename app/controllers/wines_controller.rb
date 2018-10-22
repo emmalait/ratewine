@@ -12,10 +12,10 @@ class WinesController < ApplicationController
     @wines = Wine.includes(:winery, :style).all
 
     @wines = case @order
-      when 'name' then @wines.sort_by(&:name)
-      when 'winery' then @wines.sort_by{ |w| w.winery.name }
-      when 'style' then @wines.sort_by{ |w| w.style.name }
-    end
+             when 'name' then @wines.sort_by(&:name)
+             when 'winery' then @wines.sort_by{ |w| w.winery.name }
+             when 'style' then @wines.sort_by{ |w| w.style.name }
+             end
   end
 
   # GET /wines/1

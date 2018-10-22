@@ -1,5 +1,7 @@
 <p id="notice"></p>
 
+<% cache @wine do %>
+
 <h2><%= @wine.name %></h2>
 
 <p>
@@ -19,6 +21,8 @@
  Has <%= pluralize(@wine.ratings.count, 'rating') %>, average <%= round(@wine.average_rating) %>
 <% end %>
 </p>
+
+<% end %>
 
 <% if current_user %>
   <h4>give a rating:</h4>
